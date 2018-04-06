@@ -1,3 +1,5 @@
+原文地址:https://blog.csdn.net/u010871058/article/details/54253774
+
 map <F9> :call SaveInputData()<CR>
 func! SaveInputData()
 	exec "tabnew"
