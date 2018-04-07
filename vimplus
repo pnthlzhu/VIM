@@ -1,0 +1,94 @@
+ 原文地址:https://blog.csdn.net/freeking101/article/details/62037015
+ 
+ vim和emacs是linux环境下的文本编辑利器，关于vim和emacs谁更优秀的话题从来没有断过，我在这里就不再评判了，vim是linux下的默认编辑器，
+ 学好了vim将会一生受用，我之前学vim是在网上找的一些资料，读博客之类的，使用了几年vim始终感觉没有什么大的进步，后来在vim官网看到vim书籍推荐，
+ 其中一本就是《vim实用技巧》，后来果断在京东上买了一本，除了宏相关的没怎么看以外，其他的都看了，加上自己的实际操作，感觉vim技术又上了一个层次，
+ 《vim实用技巧》是教会vimer怎么使用vim，使用vim写代码时，给vim装上一些插件，将会如虎添翼，后来我在网上找一些插件来安装，或者在github上搜索别人的vimrc，
+ 看别人装了什么插件，自己选择性的安装了一些，使用一段时间后感觉使用vim编辑代码就是一件非常愉快的事情，再加上我最近买的忍者二代机械键盘那简直写代码很带感啊，
+ 我最开始自己家的电脑上给vim装了很多插件，后来在公司又要重新搭建vim开发环境，感觉有点麻烦，后来又想有没有什么一键安装、部署之类的小程序，
+ 就可以傻瓜式的把开发环境给搭建起来不是很爽吗，vimplus就运运而生了，如果喜欢的朋友请不要吝啬，给个star，废话不多说，直接上安装步骤
+ (个人博客也发表了《超级强大的vim配置(vimplus))。
+
+vimplus
+
+vimplus是vim的超级配置安装程序 
+
+github地址：https://github.com/chxuan/vimplus.git，欢迎star和fork。
+
+接触vim到现在也有几年了，但是之前用vim都是在网上找别人配置好了的vim，但是别人配置的始终都不能够满足自己的需求（自己需要有强大的C/C++代码提示补全功能、
+头文件/源文件切换、静态代码分析等功能），所以最近自己有时间，自己归纳了一些vim的插件，然后做成一键安装程序，供有相同需求的vimer们参考。
+
+
+安装配置(Ubuntu、Centos)
+
+[plain] view plain copy
+
+    git clone https://github.com/chxuan/vimplus.git  
+    cd ./vimplus  
+    sudo ./install.sh  
+
+现在vimplus支持ubuntu14.04之后的所有ubuntu 64位系列以及centos7 64位，运行install.sh脚本，你就可以一边喝咖啡，一遍看着屏幕刷刷刷的打印就安装部署
+好了开发环境了，整个过程大约持续40分钟，其中下载编译ycm耗费了大半时间，我有下载好了的YouCompleteMe.tar.gz，省得在github上去下载，很慢的，你懂的，
+若想要手动安装ycm，需要修改vimplus目录下的.vimrc文件。
+
+[plain] view plain copy
+
+    Plugin 'Valloric/MatchTagAlways'  
+    #Plugin 'Valloric/YouCompleteMe'  
+    Plugin 'docunext/closetag.vim'  
+
+将ycm插件那行注释掉，不然还会再去下载ycm，ycm可以最后等vimplus执行完成后再安装~~，接下来需要手动编译ycm。
+[plain] view plain copy
+
+    cd ~  
+    mv YouCompleteMe.tar.gz ~/.vim/bundle/  
+    cd ~/.vim/bundle/  
+    tar -xvf YouCompleteMe.tar.gz  
+    cd YouCompleteMe  
+    ./install.py --clang-completer  
+
+vimplus将自动安装一些软件，比如说。
+
+    vim
+    g++
+    ctags
+    cmake
+    python2
+    python3
+
+安装的插件我也部分列出来。
+
+    Vundle
+    YouCompleteMe
+    NerdTree
+    nerdcommenter
+    Airline
+    auto-pairs
+    DoxygenToolkit
+    ctrlp
+    tagbar
+    vim-devicons
+    vim-surround
+    vim-commentary
+    vim-repeat
+    vim-endwise
+    tabular
+    vim-dirdiff
+    vim-coloresque
+    incsearch.vim
+    vim-startify
+    change-colorscheme
+    etc...
+
+配置YouCompleteMe
+
+到这一步，安装已经完成，你会发现~目录有两个文件，一个是vim的配置文件.vimrc，一个是YouCompleteMe的配置文件[.ycm_extra_conf.py][25]，一般来说建立
+一个main.cpp来写C、C++程序来说是没有问题的，都会有语法补全，当你需要写一些项目并涉及到第三方库时，就需要更改[.ycm_extra_conf.py][26]了，具体步骤如下。
+
+    将.ycm_extra_conf.py拷贝的项目的根目录。
+    更改.ycm_extra_conf.py里面的flags变量，添加三方库路径和工程子目录路径。
+
+使用vim-devicons
+
+桌面版linux使用vim-devicons插件会出现乱码，需要设置终端字体为Droid Sans Mono for Powerline Nerd Font Complete，使用xshell等工具连接服务器
+linux的用户就没有必要使用vim-devicons了，可以在插件目录将vim-devicons目录删除，不然会导致NerdTree的缩进有问题。
